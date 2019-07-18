@@ -4,7 +4,7 @@
 > 3.公平调度器(Fair Scheduler)  
 
 **三种调度器比较**  
-![avatar](https://github.com/keeponcoding/technology-stack/tree/master/images/fifo-scheduler.png)  
+![alt fifo-scheduler.png](https://github.com/keeponcoding/technology-stack/tree/master/images/fifo-scheduler.png)  
 简单易懂，不需要配置，但是不适用集群共享
 如图所示 第二个job提交后必须等到第一个job运行结束后才能够启动运行  
 ![avatar](https://github.com/keeponcoding/technology-stack/tree/master/images/capacity-scheduler.png)      
