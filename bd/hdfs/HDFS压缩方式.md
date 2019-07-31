@@ -1,6 +1,6 @@
-| 压缩格式 |算法 |split | native | 是否Hadoop自带 | Linux命令 | 切换压缩格式 原程序是否修改 | 
+| 压缩格式 |算法 |split | native(原生) | 是否Hadoop自带 | Linux命令 | 切换压缩格式 原程序是否修改 | 
 | --- | --- | --- | --- | --- | --- |---|
-| DEFLATE|DEFLATE|否|
+| DEFLATE|DEFLATE|否|是|
 | gzip |DEFLATE |否 | 是 | 是 | 有 | 无需修改 |
 | lzo | LZO |是 | 是 | 需要安装 | 有 | 需要建索引且需要指定输入格式 | 
 |snappy |snappy |否 | 是 | 需要安装 | 无 | 不需要修改 | 
