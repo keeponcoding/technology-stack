@@ -164,5 +164,60 @@ Scala code runner version 2.11.6 -- Copyright 2002-2013, LAMP/EPFL
 
 ![hadoop-src-compiler-success](/Users/cll/image/hadoop-src-compiler-success.png)
 
-##### 2.2 验证 
+##### 2.2 验证  
+###### 2.2.1 配置ssh
+
+**说明** hadoop的进程之间同信使用ssh方式，需要每次都要输入密码。为了实现自动化操作，需要配置ssh免密码登陆方式。 
+
+- 主节点配置： 
+
+> 首先到用户主目录（cd  ~），ls  -a查看文件，其中一个为“.ssh”，该文件价是存放密钥的。待会我们生成的密钥都会放到这个文件夹中。 
+
+```shell
+[root@hadoop001 ~]#cd ~
+[root@hadoop001 ~]#ls -a
+```
+
+
+
+> 现在执行命令生成密钥： ssh-keygen -t rsa -P ""  (使用rsa加密方式生成密钥)回车后，会提示三次输入信息，我们直接回车即可。 
+
+```shell
+[root@hadoop001 ~]#ssh-keygen -t rsa -P ""
+```
+
+
+
+> 进入文件夹cd  .ssh (进入文件夹后可以执行ls  -a 查看文件)  
+
+```shell
+[root@hadoop001 ~]#cd .ssh
+[root@hadoop001 ~]#ls -a 
+```
+
+
+
+> 将生成的公钥id_rsa.pub 内容追加到authorized_keys（执行命令：cat id_rsa.pub >> authorized_keys） 
+
+```shell
+[root@hadoop001 ~]#cat id_rsa.pub >> authorized_keys
+```
+
+- 从节点配置： 
+
+以同样的方式生成秘钥（ssh-keygen -t rsa -P "" ），然后s1和s2将生成的id_rsa.pub公钥追加到m1的authorized_keys中） 
+
+在s1中执行命令：scp id_rsa.pub m1:/root/.ssh/id_rsa.pub.s1 ，在s2中执行命令：scp id_rsa.pub m1:/root/.ssh/id_rsa.pub.s2 
+
+进入m1执行命令：cat id_rsa.pub.s1 >> authorized_keys ，cat id_rsa.pub.s1 >> authorized_keys  
+
+最后将生成的包含三个节点的秘钥的authorized_keys 复制到s1和s2的.ssh目录下（ scp authorized_keys s1:/root/.ssh/， scp authorized_keys s2:/root/.ssh/） 
+
+- 验证ssh免密码登录 
+
+输入命令ssh  localhost(主机名) 根据提示输入“yes”  
+
+输入命令exit注销（Logout） 
+
+再次输入命令ssh localhost即可直接登录 
 
